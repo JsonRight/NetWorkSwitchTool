@@ -38,6 +38,7 @@
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    self.textView.frame = self.view.bounds;
     if (self.view.bounds.size.width == [UIScreen mainScreen].bounds.size.width) {
         self.textView.scrollEnabled = YES;
     }else{
@@ -88,6 +89,7 @@
 - (void)showAllInterfacesUrl:(UIButton*)btn{
     //获取preference
     NSString* path = [[NSBundle mainBundle]pathForResource:@"InterfacesURLList" ofType:@"plist"];
+    
     NSMutableDictionary* dict = [[NSMutableDictionary alloc]initWithContentsOfFile:path];
     
     self.urlDict = [dict objectForKey:@"interfacesUrls"];
@@ -125,6 +127,7 @@
         self.logStr  = _logStr;
 }
 
+
 @end
 
 
@@ -148,6 +151,8 @@
 static JKConsole* console = nil;
 + (JKConsole* )sheareConsole{
 
+    NSString* path = [[NSBundle mainBundle]pathForResource:@"InterfacesURLList" ofType:@"plist"];
+    if (!path) return nil;
     #if defined (DebugNet) || defined (PreNet) || DEBUG //如果测试环境才有
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -157,6 +162,7 @@ static JKConsole* console = nil;
         console.layer.masksToBounds = YES;
         console.layer.cornerRadius = 25;
         console.rootViewController = [[UINavigationController alloc]initWithRootViewController:console.debugVC];
+        console.rootViewController.view.userInteractionEnabled = NO;
         [console addGestureRecognizer:console.swipe];
         [console addGestureRecognizer:console.tap];
         [console addGestureRecognizer:console.pan];
@@ -248,11 +254,14 @@ static JKConsole* console = nil;
 }
 - (void)maxmize {
     self.frame = [UIScreen mainScreen].bounds;
+    self.rootViewController.view.userInteractionEnabled = YES;
+
     self.layer.cornerRadius = 0;
 }
 
 - (void)minimize {
     self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 50, 120, 50, 50);
+    self.rootViewController.view.userInteractionEnabled = NO;
     self.layer.cornerRadius = 25;
 }
 - (void)showAndVisible{
@@ -266,7 +275,10 @@ static JKConsole* console = nil;
         console.hidden = YES;
     }
 }
-
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.rootViewController.view.frame = self.bounds;
+}
 @end
 CA_EXTERN void _Delog_(const char *className, NSUInteger line, NSString* format, ... ){
     va_list args;
