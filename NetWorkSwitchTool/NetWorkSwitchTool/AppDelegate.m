@@ -18,6 +18,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[JKConsole sheareConsole] showAndVisible];
+    [[JKConsole sheareConsole] showAndVisible];
+    [[JKConsole sheareConsole] showAndVisible];
     return YES;
 }
 
