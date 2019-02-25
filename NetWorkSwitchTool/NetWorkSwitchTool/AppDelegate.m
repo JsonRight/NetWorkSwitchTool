@@ -20,6 +20,7 @@
     [[JKConsole sheareConsole] showAndVisible];
     [[JKConsole sheareConsole] showAndVisible];
     [[JKConsole sheareConsole] showAndVisible];
+    DDLog(@"123")
     return YES;
 }
 
