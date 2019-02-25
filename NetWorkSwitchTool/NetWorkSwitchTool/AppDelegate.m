@@ -21,7 +21,6 @@
     [[JKConsole sheareConsole] showAndVisible];
     [[JKConsole sheareConsole] showAndVisible];
     DDLog(@"1")
-    DDLog(@"2")
     return YES;
 }
 
