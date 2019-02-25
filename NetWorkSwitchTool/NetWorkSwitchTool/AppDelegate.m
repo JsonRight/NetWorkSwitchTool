@@ -22,6 +22,7 @@
     [[JKConsole sheareConsole] showAndVisible];
     DDLog(@"1")
     DDLog(@"2")
+    DDLog(@"3")
     return YES;
 }
 
